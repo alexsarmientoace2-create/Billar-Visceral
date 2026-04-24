@@ -281,6 +281,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbae483168a95f54ebd56eb5a18e78ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BallController
+  esrayada: 0
+  es8: 0
+  esblanca: 0
   tronera: {fileID: 934805285}
 --- !u!4 &147191133 stripped
 Transform:
@@ -627,6 +630,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbae483168a95f54ebd56eb5a18e78ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BallController
+  esrayada: 0
+  es8: 0
+  esblanca: 0
   tronera: {fileID: 934805283}
 --- !u!54 &314349471
 Rigidbody:
@@ -1276,6 +1282,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbae483168a95f54ebd56eb5a18e78ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BallController
+  esrayada: 0
+  es8: 0
+  esblanca: 0
   tronera: {fileID: 934805283}
 --- !u!54 &925633544
 Rigidbody:
@@ -1475,7 +1484,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 70
+  field of view: 60.000004
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -1501,8 +1510,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1078531936}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.4890169, y: 0.005026975, z: -0.0028182985, w: 0.87225527}
-  m_LocalPosition: {x: -0.0017663836, y: 1.85957, z: -0.6624}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.459, z: -1.202}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1584,6 +1593,11 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
   CustomBlends: {fileID: 0}
+--- !u!4 &1105972228 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 60211d40866005e47a9c7513765f3e6a, type: 3}
+  m_PrefabInstance: {fileID: 2039710604}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1127341348
 GameObject:
   m_ObjectHideFlags: 0
@@ -1805,6 +1819,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbae483168a95f54ebd56eb5a18e78ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BallController
+  esrayada: 0
+  es8: 0
+  esblanca: 0
   tronera: {fileID: 934805283}
 --- !u!54 &1149551156
 Rigidbody:
@@ -2113,6 +2130,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbae483168a95f54ebd56eb5a18e78ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BallController
+  esrayada: 0
+  es8: 0
+  esblanca: 0
   tronera: {fileID: 934805283}
 --- !u!54 &1337591466
 Rigidbody:
@@ -2162,6 +2182,38 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.00025500002
   m_Center: {x: 0, y: 9.313226e-10, z: -2.3283064e-10}
+--- !u!1 &1348337967
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1348337968}
+  m_Layer: 0
+  m_Name: palo
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1348337968
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1348337967}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1105972228}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1350869582 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: e6b8aa785ce28a342a2b89366e28f2c2, type: 3}
@@ -2184,6 +2236,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbae483168a95f54ebd56eb5a18e78ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BallController
+  esrayada: 0
+  es8: 0
+  esblanca: 0
   tronera: {fileID: 934805283}
 --- !u!54 &1435304604
 Rigidbody:
@@ -2564,6 +2619,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbae483168a95f54ebd56eb5a18e78ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BallController
+  esrayada: 0
+  es8: 0
+  esblanca: 0
   tronera: {fileID: 934805283}
 --- !u!54 &1553362900
 Rigidbody:
@@ -2866,6 +2924,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbae483168a95f54ebd56eb5a18e78ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BallController
+  esrayada: 0
+  es8: 0
+  esblanca: 0
   tronera: {fileID: 934805283}
 --- !u!54 &1808775482
 Rigidbody:
@@ -3133,6 +3194,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbae483168a95f54ebd56eb5a18e78ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BallController
+  esrayada: 0
+  es8: 0
+  esblanca: 0
   tronera: {fileID: 934805283}
 --- !u!54 &1849279554
 Rigidbody:
@@ -3199,6 +3263,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbae483168a95f54ebd56eb5a18e78ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BallController
+  esrayada: 0
+  es8: 0
+  esblanca: 0
   tronera: {fileID: 934805283}
 --- !u!54 &1863982959
 Rigidbody:
@@ -3265,6 +3332,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbae483168a95f54ebd56eb5a18e78ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BallController
+  esrayada: 0
+  es8: 0
+  esblanca: 0
   tronera: {fileID: 934805283}
 --- !u!54 &1876558222
 Rigidbody:
@@ -3331,6 +3401,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbae483168a95f54ebd56eb5a18e78ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BallController
+  esrayada: 0
+  es8: 0
+  esblanca: 0
   tronera: {fileID: 934805283}
 --- !u!54 &1888125131
 Rigidbody:
@@ -3547,6 +3620,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbae483168a95f54ebd56eb5a18e78ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BallController
+  esrayada: 0
+  es8: 0
+  esblanca: 0
   tronera: {fileID: 934805283}
 --- !u!54 &1987127674
 Rigidbody:
@@ -3695,6 +3771,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbae483168a95f54ebd56eb5a18e78ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BallController
+  esrayada: 0
+  es8: 0
+  esblanca: 0
   tronera: {fileID: 934805283}
 --- !u!54 &2024398563
 Rigidbody:
@@ -3744,6 +3823,63 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.00025500002
   m_Center: {x: 0, y: 4.656613e-10, z: -2.3283064e-10}
+--- !u!1001 &2039710604
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1348337968}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 60211d40866005e47a9c7513765f3e6a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 60211d40866005e47a9c7513765f3e6a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 60211d40866005e47a9c7513765f3e6a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 60211d40866005e47a9c7513765f3e6a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 60211d40866005e47a9c7513765f3e6a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 60211d40866005e47a9c7513765f3e6a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 60211d40866005e47a9c7513765f3e6a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 60211d40866005e47a9c7513765f3e6a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 60211d40866005e47a9c7513765f3e6a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 60211d40866005e47a9c7513765f3e6a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 60211d40866005e47a9c7513765f3e6a, type: 3}
+      propertyPath: m_Name
+      value: Palo_mdl
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 60211d40866005e47a9c7513765f3e6a, type: 3}
 --- !u!1001 &2049292369
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3843,6 +3979,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbae483168a95f54ebd56eb5a18e78ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BallController
+  esrayada: 0
+  es8: 0
+  esblanca: 0
   tronera: {fileID: 934805283}
 --- !u!54 &2049292374
 Rigidbody:
@@ -3996,7 +4135,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbae483168a95f54ebd56eb5a18e78ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BallController
-  tronera: {fileID: 934805283}
+  esrayada: 0
+  es8: 0
+  esblanca: 0
+  tronera: {fileID: 934805285}
 --- !u!54 &2101045786
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4056,3 +4198,4 @@ SceneRoots:
   - {fileID: 1669305870}
   - {fileID: 732948649}
   - {fileID: 1904935829}
+  - {fileID: 1348337968}
