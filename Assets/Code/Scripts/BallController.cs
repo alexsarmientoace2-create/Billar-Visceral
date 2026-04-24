@@ -2,6 +2,10 @@ using UnityEngine;
 
 public class BallController : MonoBehaviour
 {
+    public bool esrayada;
+    public bool es8;
+    public bool esblanca;
+
 
     public Collider tronera;
 
@@ -9,4 +13,16 @@ public class BallController : MonoBehaviour
     {
         Destroy(this.gameObject);
     }
+
+    private void Awake()
+    {
+        
+    }
+
+    private void Update()
+    {
+        
+    }
+
+    
 }

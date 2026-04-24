@@ -203,13 +203,13 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e6b8aa785ce28a342a2b89366e28f2c2, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 50257481}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e6b8aa785ce28a342a2b89366e28f2c2, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 50257484}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e6b8aa785ce28a342a2b89366e28f2c2, type: 3}
       insertIndex: -1
       addedObject: {fileID: 50257485}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e6b8aa785ce28a342a2b89366e28f2c2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 50257488}
   m_SourcePrefab: {fileID: 100100000, guid: e6b8aa785ce28a342a2b89366e28f2c2, type: 3}
 --- !u!4 &50257479 stripped
 Transform:
@@ -221,18 +221,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: e6b8aa785ce28a342a2b89366e28f2c2, type: 3}
   m_PrefabInstance: {fileID: 50257478}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &50257481
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 50257480}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b0ee247516119f4393752d1cdbb39a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::WhiteBallController
 --- !u!54 &50257484
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -281,6 +269,19 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.00025500002
   m_Center: {x: 0, y: -6.9849193e-10, z: 2.3283064e-10}
+--- !u!114 &50257488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 50257480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbae483168a95f54ebd56eb5a18e78ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BallController
+  tronera: {fileID: 934805285}
 --- !u!4 &147191133 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: e6b8aa785ce28a342a2b89366e28f2c2, type: 3}
