@@ -7,9 +7,13 @@ public class ControladorBillar : MonoBehaviour
     public InputActionReference accionApuntar;
     public InputActionReference accionGolpear;
 
-    [Header("Física y Objetos")]
+    [Header("Fï¿½sica y Objetos")]
     public Rigidbody bolaBlanca;
-    public Transform modeloTaco; // El hijo que se mueve hacia atrás al cargar
+    public Transform modeloTaco; // El hijo que se mueve hacia atrï¿½s al cargar
+    public Transform PosicionBolaBlanca;
+    public Transform culopalo;
+    Vector3 vectorpalo;
+    public Rigidbody bolablanca;
 
     [Header("Ajustes")]
     public float sensibilidadGiro = 0.5f;
@@ -18,23 +22,27 @@ public class ControladorBillar : MonoBehaviour
 
     private bool cargando = false;
     private float fuerzaActual = 0f;
-    private Vector3 posicionLocalOriginalTaco;
+    
 
     void Awake()
     {
-        // Guardamos la posición inicial del taco para que sepa a dónde volver
-        posicionLocalOriginalTaco = modeloTaco.localPosition;
+      
     }
 
     void OnEnable()
     {
         // 1. Activar las acciones
-        accionApuntar.action.Enable();
-        accionGolpear.action.Enable();
 
-        // 2. Suscribirse a los eventos del clic (Delegados de C#)
-        accionGolpear.action.started += IniciarCarga;   // Cuando el clic baja
-        accionGolpear.action.canceled += EjecutarGolpe; // Cuando el clic sube
+        if (bolaBlanca.linearVelocity.sqrMagnitude < 0.01f)
+        {
+            accionApuntar.action.Enable();
+            accionGolpear.action.Enable();
+
+            // 2. Suscribirse a los eventos del clic (Delegados de C#)
+            accionGolpear.action.started += IniciarCarga;   // Cuando el clic baja
+            accionGolpear.action.canceled += EjecutarGolpe; // Cuando el clic sube}
+        }
+
     }
 
     void OnDisable()
@@ -47,45 +55,50 @@ public class ControladorBillar : MonoBehaviour
         accionGolpear.action.Disable();
     }
 
+
     void Update()
     {
-        // 1. El pivote siempre sigue a la bola (pero no adopta su rotación)
-        transform.position = bolaBlanca.position;
 
-        // 2. Rotar el pivote usando el movimiento del ratón
+        // 0. Actualizamos el vector de direcciï¿½n del palo para mas adelante usarlo en el retoceso visual y en las guias de tiro
+        vectorpalo = culopalo.position - PosicionBolaBlanca.position;
+
+        // 1. El pivote siempre sigue a la bola (pero no adopta su rotaciï¿½n)
+        transform.position = PosicionBolaBlanca.position;
+
+        // 2. Rotar el pivote usando el movimiento del ratï¿½n
         Vector2 deltaRaton = accionApuntar.action.ReadValue<Vector2>();
         transform.Rotate(Vector3.up, deltaRaton.x * sensibilidadGiro);
 
-        // 3. Efecto visual y cálculo de carga continua
+        // 3. Efecto visual y cï¿½lculo de carga continua
         if (cargando)
         {
             fuerzaActual += Time.deltaTime * multiplicadorCarga;
             fuerzaActual = Mathf.Clamp(fuerzaActual, 0, fuerzaMaxima);
 
-            // Mover el taco hacia atrás visualmente (eje Z local)
-            float retrocesoVisual = fuerzaActual * 0.05f;
-            modeloTaco.localPosition = posicionLocalOriginalTaco - new Vector3(0, 0, retrocesoVisual);
+            // Mover el taco hacia atrï¿½s visualmente respecto al vector creado en el paso 0
+            float retrocesoVisual = fuerzaActual * 0.03f;
+            modeloTaco.localPosition = PosicionBolaBlanca.position + vectorpalo * retrocesoVisual;
         }
     }
 
-    // Método que se llama automáticamente al PRESIONAR el clic
+    // Mï¿½todo que se llama automï¿½ticamente al PRESIONAR el clic
     private void IniciarCarga(InputAction.CallbackContext context)
     {
         cargando = true;
         fuerzaActual = 0f;
     }
 
-    // Método que se llama automáticamente al SOLTAR el clic
+    // Mï¿½todo que se llama automï¿½ticamente al SOLTAR el clic
     private void EjecutarGolpe(InputAction.CallbackContext context)
     {
         if (!cargando) return;
 
-        // Aplicar la fuerza a la bola en la dirección hacia la que mira el pivote
+        // Aplicar la fuerza a la bola en la direcciï¿½n hacia la que mira el pivote
         bolaBlanca.AddForce(transform.forward * fuerzaActual, ForceMode.Impulse);
 
-        // Reiniciar variables y devolver el taco a su posición original
+        // Reiniciar variables y devolver el taco a su posiciï¿½n original
         cargando = false;
         fuerzaActual = 0f;
-        modeloTaco.localPosition = posicionLocalOriginalTaco;
+        
     }
 }

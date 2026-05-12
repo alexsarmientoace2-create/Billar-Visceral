@@ -9,8 +9,9 @@ public class BallController : MonoBehaviour
 
     public Collider tronera;
 
-    private void OnTriggerEnter(Collider tronera)
+    private void OnTriggerEnter(Collider triggerTronera)
     {
+        if (triggerTronera == tronera)
         Destroy(this.gameObject);
     }
 

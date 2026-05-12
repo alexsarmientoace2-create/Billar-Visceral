@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,6 +11,8 @@ public class PlayerController : MonoBehaviour
     Rigidbody rb;
     InputAction actionMovimiento;
     Animator anim;
+    public Rigidbody bolablanca;
+    public GameObject palo;
 
     private void Awake()
     {
@@ -22,14 +25,28 @@ public class PlayerController : MonoBehaviour
     {
         Vector2 movimiento = actionMovimiento.ReadValue<Vector2>();
         Mover(movimiento);
-      
-    }
 
-    void Mover(Vector2 movimiento)
-    {
-        Vector3 direccionRelativa = (transform.right * movimiento.x) + (transform.forward * movimiento.y);
-        direccionRelativa = direccionRelativa.normalized;
-        Vector3 nuevaPosicion = rb.position + direccionRelativa * velocidad * Time.fixedDeltaTime;
-        rb.MovePosition(nuevaPosicion);
+        if (bolablanca.linearVelocity.sqrMagnitude > 0.0001f)
+        {
+            palo.SetActive(false);
+        }
+        else
+        {
+            palo.SetActive(true);
+
+
+        }
+
+        void Mover(Vector2 movimiento)
+        {
+            Vector3 direccionRelativa = (transform.right * movimiento.x) + (transform.forward * movimiento.y);
+            direccionRelativa = direccionRelativa.normalized;
+            Vector3 nuevaPosicion = rb.position + direccionRelativa * velocidad * Time.fixedDeltaTime;
+            rb.MovePosition(nuevaPosicion);
+        }
+
+
     }
 }
+
+
