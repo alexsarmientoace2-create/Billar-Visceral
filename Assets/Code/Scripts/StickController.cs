@@ -33,15 +33,15 @@ public class ControladorBillar : MonoBehaviour
     {
         // 1. Activar las acciones
 
-        if (bolaBlanca.linearVelocity.sqrMagnitude < 0.01f)
-        {
+       
+        
             accionApuntar.action.Enable();
             accionGolpear.action.Enable();
 
             // 2. Suscribirse a los eventos del clic (Delegados de C#)
             accionGolpear.action.started += IniciarCarga;   // Cuando el clic baja
             accionGolpear.action.canceled += EjecutarGolpe; // Cuando el clic sube}
-        }
+        
 
     }
 
