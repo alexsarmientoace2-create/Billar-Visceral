@@ -4,7 +4,6 @@ public class BallController : MonoBehaviour
 {
     public bool esrayada;
     public bool es8;
-    public bool esblanca;
 
 
     public Collider tronera;
