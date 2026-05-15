@@ -3,30 +3,38 @@ using UnityEngine;
 public class PlayerMoveScript : MonoBehaviour
 {
     public float moveSpeed = 10f;
-    public float rotationSpeed = 100f; // Para que el taco gire alrededor de la bola
+    public float rotationSpeed = 100f;
+
+    // Solo necesitamos el archivo de audio (.mp3 o .wav)
+    public AudioClip sonidoChoque;
 
     private Rigidbody rbody;
+    private AudioSource fuenteAudio; // Se configurará por código
 
     void Start()
     {
         rbody = GetComponent<Rigidbody>();
-        // Si es un taco de billar, normalmente no queremos que se caiga con la gravedad
         rbody.useGravity = false;
+
+        // --- CONFIGURACIÓN POR CÓDIGO ---
+        // Creamos el componente de audio automáticamente si no existe
+        fuenteAudio = gameObject.AddComponent<AudioSource>();
+        fuenteAudio.playOnAwake = false;
+        fuenteAudio.spatialBlend = 1.0f; // Esto hace que el sonido sea 3D
     }
 
     void Update()
     {
-        // 1. Obtener entradas (Funciona con WASD y Flechas por defecto)
-        float horizontal = Input.GetAxis("Horizontal"); // A/D o Izquierda/Derecha
-        float vertical = Input.GetAxis("Vertical");     // W/S o Arriba/Abajo
+        // 1. Obtener entradas
+        float horizontal = Input.GetAxis("Horizontal");
+        float vertical = Input.GetAxis("Vertical");
 
-        // 2. Calcular dirección de movimiento relativo al taco
+        // 2. Calcular dirección
         Vector3 movement = new Vector3(horizontal, 0, vertical) * moveSpeed * Time.deltaTime;
 
         // 3. Mover el taco
         transform.Translate(movement, Space.Self);
 
-        // EXTRA: Si quieres que el taco "golpee" con la tecla E
         if (Input.GetKeyDown(KeyCode.E))
         {
             GolpearBola();
@@ -35,7 +43,6 @@ public class PlayerMoveScript : MonoBehaviour
 
     void GolpearBola()
     {
-        // Aquí puedes añadir una pequeña animación o impulso hacia adelante
         Debug.Log("¡Golpe!");
     }
 
@@ -43,21 +50,28 @@ public class PlayerMoveScript : MonoBehaviour
     {
         if (collision.gameObject.name == "Bouncer")
         {
+            // --- REPRODUCCIÓN POR CÓDIGO ---
+            if (sonidoChoque != null)
+            {
+                // Usamos PlayOneShot para que el sonido no se corte si el palo se para
+                fuenteAudio.PlayOneShot(sonidoChoque);
+            }
+
             // 1. Buscamos el Rigidbody de la pelota
             Rigidbody rbBola = collision.gameObject.GetComponent<Rigidbody>();
 
             if (rbBola != null)
             {
-                // 2. Calculamos la dirección (desde el palo hacia la bola)
+                // 2. Calculamos el punto exacto de contacto (EL DONDE)
                 Vector3 direccionGolpe = collision.contacts[0].point - transform.position;
-                direccionGolpe.y = 0; // Evitamos que la bola salga volando hacia arriba
+                direccionGolpe.y = 0;
 
-                // 3. Aplicamos un impulso manual (Aquí controlas TÚ la fuerza)
+                // 3. Aplicamos el impulso
                 float fuerzaImpacto = 20f;
                 rbBola.AddForce(direccionGolpe.normalized * fuerzaImpacto, ForceMode.Impulse);
             }
 
-            // Detenemos el palo para que no siga avanzando
+            // Detenemos el palo para que no atraviese la bola
             rbody.linearVelocity = Vector3.zero;
         }
     }
