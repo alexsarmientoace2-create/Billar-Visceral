@@ -21,11 +21,6 @@ public class BolaBlancaController : MonoBehaviour
         // Configuramos la entrada
         actionMovimiento = InputSystem.actions.FindAction("Move");
         rb = GetComponent<Rigidbody>();
-
-        // Creamos el componente de audio automáticamente para que no tengas que añadirlo a mano
-        fuenteAudio = gameObject.AddComponent<AudioSource>();
-        fuenteAudio.playOnAwake = false;
-        fuenteAudio.spatialBlend = 1.0f; // Sonido 3D (opcional)
     }
 
     private void FixedUpdate()
