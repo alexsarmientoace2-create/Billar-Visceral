@@ -1,18 +1,17 @@
 using UnityEngine;
-using UnityEngine.SceneManagement; // Requerido para gestionar escenas
+using UnityEngine.SceneManagement;
 
 public class CambioEscena : MonoBehaviour
 {
-    // Función para cargar una escena por su nombre
-    public void CargarEscena(string nombreEscena)
+    // Esta función cargará directamente la escena "instrucciones"
+    public void IrAInstrucciones()
     {
-        SceneManager.LoadScene(nombreEscena);
+        SceneManager.LoadScene("instrucciones");
     }
 
-    // Función para salir del juego
     public void SalirDelJuego()
     {
-        Debug.Log("Saliendo del juego..."); // Solo se ve en el editor
-        Application.Quit(); // Cierra la aplicación (solo funciona en el build final)
+        Debug.Log("Saliendo del juego...");
+        Application.Quit();
     }
 }
