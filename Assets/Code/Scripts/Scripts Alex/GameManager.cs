@@ -1,21 +1,35 @@
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.InputSystem.Controls;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager gM;
     public static bool TurnoJugador1;
     public static int Jugador1esLisa = 0;
     public static int BolasRestantesJugador1 = 8;
     public static int BolasRestantesJugador2 = 8;
+    public GameObject CanvasVictoria1;
+    public GameObject CanvasVictoria2;
 
 
     private void Awake()
     {
         TurnoJugador1 = true;
+        gM = this;
     }
 
-    void bolaLisaEntra()
+    public void bolaLisaEntra()
     {
-        if (TurnoJugador1 == true && Jugador1esLisa == 1)
+        if (Jugador1esLisa == 0 && TurnoJugador1 == true)
+        {
+            Jugador1esLisa = 1;
+        }
+        else if (Jugador1esLisa == 0 && TurnoJugador1 == false)
+        {
+            Jugador1esLisa = 2;
+        }
+        else if (TurnoJugador1 == true && Jugador1esLisa == 1)
         {
             PuntoJugador1();
         }
@@ -33,19 +47,19 @@ public class GameManager : MonoBehaviour
             FaltaJugador2();
             BolasRestantesJugador1--;
         }
-        else if (TurnoJugador1 == true && Jugador1esLisa == 0)
-        {
-            Jugador1esLisa = 1;
-        }
-        else if (TurnoJugador1 == false && Jugador1esLisa == 0)
+    }
+
+    public void bolaRayadaEntra()
+    {
+        if (Jugador1esLisa == 0 && TurnoJugador1 == true)
         {
             Jugador1esLisa = 2;
         }
-    }
-
-    void bolaRayadaEntra()
-    {
-        if (TurnoJugador1 == true && Jugador1esLisa == 1)
+        else if (Jugador1esLisa == 0 && TurnoJugador1 == false)
+        {
+            Jugador1esLisa = 1;
+        }
+        else if (TurnoJugador1 == true && Jugador1esLisa == 1)
         {
             FaltaJugador1();
             BolasRestantesJugador2--;
@@ -63,18 +77,10 @@ public class GameManager : MonoBehaviour
         {
             PuntoJugador2();
         }
-        else if (TurnoJugador1 == true && Jugador1esLisa == 0)
-        {
-            Jugador1esLisa = 2;
-        }
-        else if (TurnoJugador1 == false && Jugador1esLisa == 0)
-        {
-            Jugador1esLisa = 1;
-        }
     }
 
 
-    void bolanegraentra()
+    public void bolanegraentra()
     {
         if (TurnoJugador1 == true && BolasRestantesJugador1 == 1)
         {
@@ -94,12 +100,12 @@ public class GameManager : MonoBehaviour
         }
     }
 
-        void PuntoJugador1()
+    public void PuntoJugador1()
         {
         BolasRestantesJugador1--;
         }
 
-        void PuntoJugador2()
+    public void PuntoJugador2()
         {
         BolasRestantesJugador2--;
         }
@@ -109,19 +115,21 @@ public class GameManager : MonoBehaviour
 
         }
 
-        void FaltaJugador2()
+    public void FaltaJugador2()
         {
 
         }
 
-        void VictoriaJugador1()
+    public void VictoriaJugador1()
         {
-
+        Time.timeScale = 0;
+        CanvasVictoria1.SetActive(true);
         }
 
-        void VictoriaJugador2()
+    public void VictoriaJugador2()
         {
-
-        }
+        Time.timeScale = 0;
+        CanvasVictoria2.SetActive(true);
+    }
     }
 
