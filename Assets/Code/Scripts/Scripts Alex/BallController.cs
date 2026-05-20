@@ -15,15 +15,15 @@ public class BallController : MonoBehaviour
         {
             if (es8 == true)
             {
-                GameManager.gM.bolanegraentra();
+                GameManager.gM.Bolanegraentra();
             }
             else if (esrayada == false)
             {
-                GameManager.gM.bolaLisaEntra();
+                GameManager.gM.BolaLisaEntra();
             }
             else if (esrayada == true)
             {
-                GameManager.gM.bolaRayadaEntra();
+                GameManager.gM.BolaRayadaEntra();
             }
             Destroy(this.gameObject);
         }
@@ -35,14 +35,8 @@ public class BallController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
     }
 
-    private void Update()
-    {
-        if (rb.angularVelocity.sqrMagnitude < 1)
-        {
-            rb.linearVelocity = Vector3.zero;
-            rb.angularVelocity = Vector3.zero;
-        }
-    }
-
 
 }
+
+
+

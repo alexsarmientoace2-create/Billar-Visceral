@@ -22,26 +22,23 @@ public class ControladorBillar : MonoBehaviour
 
     private bool cargando = false;
     private float fuerzaActual = 0f;
-    
 
-    void Awake()
-    {
-      
-    }
+
+
 
     void OnEnable()
     {
         // 1. Activar las acciones
 
-       
-        
-            accionApuntar.action.Enable();
-            accionGolpear.action.Enable();
 
-            // 2. Suscribirse a los eventos del clic (Delegados de C#)
-            accionGolpear.action.started += IniciarCarga;   // Cuando el clic baja
-            accionGolpear.action.canceled += EjecutarGolpe; // Cuando el clic sube}
-        
+
+        accionApuntar.action.Enable();
+        accionGolpear.action.Enable();
+
+        // 2. Suscribirse a los eventos del clic (Delegados de C#)
+        accionGolpear.action.started += IniciarCarga;   // Cuando el clic baja
+        accionGolpear.action.canceled += EjecutarGolpe; // Cuando el clic sube}
+
 
     }
 
@@ -50,7 +47,7 @@ public class ControladorBillar : MonoBehaviour
         // Limpiar la memoria al desactivar el objeto
         accionGolpear.action.started -= IniciarCarga;
         accionGolpear.action.canceled -= EjecutarGolpe;
-        
+
         accionApuntar.action.Disable();
         accionGolpear.action.Disable();
     }
@@ -99,6 +96,6 @@ public class ControladorBillar : MonoBehaviour
         // Reiniciar variables y devolver el taco a su posici�n original
         cargando = false;
         fuerzaActual = 0f;
-        
+
     }
 }

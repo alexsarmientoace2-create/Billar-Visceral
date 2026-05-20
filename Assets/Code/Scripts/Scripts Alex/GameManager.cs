@@ -19,7 +19,11 @@ public class GameManager : MonoBehaviour
         gM = this;
     }
 
-    public void bolaLisaEntra()
+    public void CambioDeTurno()
+    {
+        TurnoJugador1 = !TurnoJugador1;
+    }
+    public void BolaLisaEntra()
     {
         if (Jugador1esLisa == 0 && TurnoJugador1 == true)
         {
@@ -49,7 +53,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void bolaRayadaEntra()
+    public void BolaRayadaEntra()
     {
         if (Jugador1esLisa == 0 && TurnoJugador1 == true)
         {
@@ -80,7 +84,7 @@ public class GameManager : MonoBehaviour
     }
 
 
-    public void bolanegraentra()
+    public void Bolanegraentra()
     {
         if (TurnoJugador1 == true && BolasRestantesJugador1 == 1)
         {
@@ -101,35 +105,35 @@ public class GameManager : MonoBehaviour
     }
 
     public void PuntoJugador1()
-        {
+    {
         BolasRestantesJugador1--;
-        }
+    }
 
     public void PuntoJugador2()
-        {
+    {
         BolasRestantesJugador2--;
-        }
+    }
 
-        void FaltaJugador1()
-        {
+    void FaltaJugador1()
+    {
 
-        }
+    }
 
     public void FaltaJugador2()
-        {
+    {
 
-        }
+    }
 
     public void VictoriaJugador1()
-        {
+    {
         Time.timeScale = 0;
         CanvasVictoria1.SetActive(true);
-        }
+    }
 
     public void VictoriaJugador2()
-        {
+    {
         Time.timeScale = 0;
         CanvasVictoria2.SetActive(true);
     }
-    }
+}
 

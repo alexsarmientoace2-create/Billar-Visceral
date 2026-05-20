@@ -10,7 +10,8 @@ public class BolaBlanca : MonoBehaviour
     Rigidbody rb;
     InputAction actionMovimiento;
     public GameObject palo;
-
+    public Collider tronera;
+    public Transform posicionInicial;
 
     private void Awake()
     {
@@ -35,14 +36,19 @@ public class BolaBlanca : MonoBehaviour
 
     }
 
-    private void Update()
+    private void OnTriggerEnter(Collider trigger)
     {
-        if (rb.angularVelocity.sqrMagnitude < 1f)
+        if (trigger == tronera)
         {
-            rb.linearVelocity = Vector3.zero;
-            rb.angularVelocity = Vector3.zero;
+
+            GameManager.gM.CambioDeTurno();
+
+            transform.position = posicionInicial.position;
         }
+
     }
+
+
     void Mover(Vector2 movimiento)
     {
         Vector3 direccion = (transform.forward * movimiento.y);

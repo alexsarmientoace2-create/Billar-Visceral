@@ -7,93 +7,128 @@ public class CameraController : MonoBehaviour
     private CinemachineCamera vcam;
     private CinemachineFollow followComponent;
 
-    // Acciones del New Input System
     private InputAction scrollAction;
-    private InputAction mousePositionAction;
-
-    [Header("Configuración de Entrada")]
-    [SerializeField] private string scrollActionName = "scroll";
-    [SerializeField] private string mousePositionActionName = "point"; // Acción por defecto del Input System para la posición
+    private InputAction PointAction;
 
     [Header("Límites de Zoom")]
-    [SerializeField] private float zoomSpeed = 0.05f; // Ajustado para el valor raw de la rueda del ratón (e.g., 120)
+    [SerializeField] private float zoomSpeed = 0.05f;
     [SerializeField] private float minDistance = 5f;
     [SerializeField] private float maxDistance = 30f;
     [SerializeField] private float smoothTime = 0.15f;
 
     [Header("Ajuste de Plano")]
-    [SerializeField] private LayerMask planeLayerMask = ~0; // Capa en la que está tu plano 3D
+    [SerializeField] private LayerMask planeLayerMask = ~0;
 
     private float targetDistance;
     private Vector3 zoomVelocity;
 
-    // Variables para el desplazamiento del objetivo
+
     public Transform dummyTarget;
     private Vector3 targetFollowPosition;
     private Vector3 positionVelocity;
 
-    private void Start()
+    private void Awake()
     {
         vcam = GetComponent<CinemachineCamera>();
-        if (vcam != null)
-        {
-            followComponent = vcam.GetComponent<CinemachineFollow>();
-        }
 
-        // Buscar acciones globales en Project Settings
-        scrollAction = InputSystem.actions.FindAction(scrollActionName);
-        mousePositionAction = InputSystem.actions.FindAction(mousePositionActionName);
+        followComponent = vcam.GetComponent<CinemachineFollow>();
 
-        // Si "point" no existe por defecto, intentamos buscar "position" o similar
-        if (mousePositionAction == null)
-        {
-            mousePositionAction = InputSystem.actions.FindAction("position");
-        }
+        scrollAction = InputSystem.actions.FindAction("Scroll");
+
+        PointAction = InputSystem.actions.FindAction("Point");
+
+
 
         if (scrollAction == null)
         {
-            Debug.LogError($"No se encontró la acción '{scrollActionName}' en InputSystem.actions.");
+            Debug.LogError($"No se encontró la acción Scroll en InputSystem.actions.");
             return;
         }
-
+        if (PointAction == null)
+        {
+            Debug.LogError($"No se encontró la acción Point en InputSystem.actions.");
+            return;
+        }
+        /// <summary>
+        /// el dummy (gameobject empty) debe de estar asignado como tracking target en
+        /// el componente cinemachine camera. ademas debemos asignar "follow" en position control
+        ///En el mismo componente de cinemachine camera.
         if (followComponent == null || vcam.Follow == null)
         {
-            Debug.LogError("Asegúrate de que la CinemachineCamera tiene asignado un 'Follow' inicial y el componente CinemachineFollow.");
+            Debug.LogError("CinemachineCamera no tiene asignado 'Follow' o no tiene el componente CinemachineFollow.");
             return;
         }
 
-        // Configurar el sistema de Dummy Target para no modificar el objeto original del jugador
-        InitDummyTarget();
+        Dummy();
     }
 
-    private void InitDummyTarget()
+
+    /// <summary>
+    /// Inicializa el dummy de forma dinámica. 
+    /// Hacemos esto por código en lugar de dejarlo fijo en el Inspector 
+    /// porque al pulsar Play, si las variables internas de posición y distancia no se acoplan 
+    /// exactamente al estado inicial de la cámara, el sistema de físicas/renderizado intentará 
+    /// mandar el target al origen (0,0,0) o colapsará el cálculo matemático del zoom (LerpFactor).
+
+    private void Dummy()
     {
+        /// <summary>
+        /// Evita que el dummy se quede en la coordenada por defecto del editor (0,0,0).
+        /// Toma la posición de lo que sea que tuviera asignado la cámara originalmente como guía.
+        ///en este caso esa guia es la posicion original en la que pusimos al dummy, osea, la altura a la que esta la layermask
+        dummyTarget.position = vcam.Follow.position;
+
+        /// <summary>
+        /// C# inicializa los Vector3 en (0,0,0) por defecto. Si no igualamos esto aquí, 
+        /// el método Vector3.SmoothDamp del Update interpretará que la cámara debe viajar 
+        /// inmediatamente al centro del universo en el frame 1, provocando un zoom intantaneo que atravesara la mesa.
         targetFollowPosition = vcam.Follow.position;
-        vcam.Follow = dummyTarget;
+
+        /// <summary>
+        /// Lee el desfase físico real (Offset) que tiene la cámara respecto al objeto en el editor.
+        /// Si no lo hacemos, 'targetDistance' valdrá 0. Al hacer el primer scroll, la fórmula 
+        /// del zoom provocará una división por cero (zoomSpeed / 0), lo que romperá el suavizado.
         targetDistance = followComponent.FollowOffset.magnitude;
+
+        // Acotación de seguridad para que el zoom de inicio respete las reglas del juego.
+        targetDistance = Mathf.Clamp(targetDistance, minDistance, maxDistance);
     }
+
+
 
     private void Update()
     {
-        if (followComponent == null || scrollAction == null || Camera.main == null) return;
-
-        // 1. Leer el valor del scroll (Eje de la rueda del ratón, habitualmente da valores como 120 o -120)
+        //el scroll da valores entre 120 o -120 dependiendo si se esta scrolleando hacia arriba o hacia abajo)
         float scrollInput = scrollAction.ReadValue<Vector2>().y;
 
-        if (Mathf.Abs(scrollInput) > Mathf.Epsilon)
+        /// <summary>
+        ///Mathf.Abs (Abs de Absolute) lee el valor absoluto de algo, osea que vuelve a los negativos en positivos
+        ///por lo que aunque hagas scroll hacia arriba o hacia abajo el valor siempre sera positivo para este if
+        ///lo que hago es basicamente saber si estoy haciendo scroll sin importar la direccion
+        if (Mathf.Abs(scrollInput) > 0)
         {
-            // Conseguir la posición en pantalla del ratón
-            Vector2 mouseScreenPos = mousePositionAction != null ? mousePositionAction.ReadValue<Vector2>() : Mouse.current.position.ReadValue();
+            Vector2 mouseScreenPos = PointAction.ReadValue<Vector2>();
 
-            // Trazar un rayo desde la cámara principal hacia el plano 3D
-            Ray ray = Camera.main.ScreenPointToRay(mouseScreenPos);
+            Ray rayoCamaraARaton = Camera.main.ScreenPointToRay(mouseScreenPos);
 
-            if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, planeLayerMask))
+            /// <summary>
+            ///miramos si el rayo ha chocado contra la LayerMask teniendo en cuenta que el rayo mide infinito (Mathf.Infinity).
+            ///tengo que ponerme las pilas para entender mathf porque tiene cosas super utiles
+            if (Physics.Raycast(rayoCamaraARaton, out RaycastHit hit, Mathf.Infinity, planeLayerMask))
             {
-                // Solo desplazamos el objetivo si estamos haciendo zoom HACIA ADENTRO (scrollInput > 0)
+                // Solo desplazamos el objetivo si estamos haciendo scroll hacia arriba 
                 if (scrollInput > 0 && targetDistance > minDistance)
                 {
-                    // Calculamos un porcentaje de acercamiento hacia el punto del ratón basado en la fuerza del scroll
+                    /// <summary>
+                    /// Calculamos un porcentaje de acercamiento hacia el punto del ratón basado la velocidad a la que hacemos scroll fisicamente
+                    ///multiplicada por el valor de velocidad que le demos y dividido entre la distancia a la que estemos del objetivo
+                    ///mientras mas lejos, mas rapido hacemos scroll y mientras mas cerca, mas lento. Para poder darle un valor a cualquier
+                    ///posicion entre el valor maximo (1) y el minimo (0) de acercamiento para modificarlo y poder movernos entre estos dos puntos
+                    ///usamos lerp factor. Aqui esta la explicacion de que es lerp que me he encontrado en google por si se me olvida en un futuro xD:
+                    ///El factor Lerp (interpolación lineal) es un valor numérico (generalmente entre \(0.0\) y \(1.0\))
+                    ///que calcula un punto intermedio entre un valor inicial y uno final.
+                    ///Representa el porcentaje de avance: \(0\) devuelve el valor inicial (0%), \(1\) devuelve el valor final (100%),
+                    ///y \(0.5\) devuelve el punto medio exacto.
                     float lerpFactor = Mathf.Clamp01((scrollInput * zoomSpeed) / targetDistance);
                     targetFollowPosition = Vector3.Lerp(targetFollowPosition, hit.point, lerpFactor);
                 }
